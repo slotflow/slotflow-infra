@@ -1,0 +1,24 @@
+[2026-01-12 19:08:12] [[31merror[39m]: [31mFailed to start kafka service : [39m
+[31mThis server does not host this topic-partition[39m
+[31mKafkaJSProtocolError: This server does not host this topic-partition[39m
+[31m    at createErrorFromCode (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\protocol\error.js:581:10)[39m
+[31m    at Object.parse (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\protocol\requests\metadata\v0\response.js:55:11)[39m
+[31m    at Connection.send (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\network\connection.js:433:35)[39m
+[31m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+[31m    at async [private:Broker:sendRequest] (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\broker\index.js:904:14)[39m
+[31m    at async Broker.metadata (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\broker\index.js:177:12)[39m
+[31m    at async retryOnLeaderNotAvailable.delay (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\admin\index.js:175:55)[39m
+[31m    at async callback (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\admin\index.js:36:14)[39m
+[31m    at async checkCondition (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\utils\waitFor.js:21:22)[39m
+[2026-01-12 19:09:24] [[31merror[39m]: [31mFailed to start kafka service : [39m
+[31mThis server does not host this topic-partition[39m
+[31mKafkaJSProtocolError: This server does not host this topic-partition[39m
+[31m    at createErrorFromCode (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\protocol\error.js:581:10)[39m
+[31m    at Object.parse (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\protocol\requests\metadata\v0\response.js:55:11)[39m
+[31m    at Connection.send (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\network\connection.js:433:35)[39m
+[31m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+[31m    at async [private:Broker:sendRequest] (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\broker\index.js:904:14)[39m
+[31m    at async Broker.metadata (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\broker\index.js:177:12)[39m
+[31m    at async retryOnLeaderNotAvailable.delay (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\admin\index.js:175:55)[39m
+[31m    at async callback (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\admin\index.js:36:14)[39m
+[31m    at async checkCondition (D:\Projects\BrocamP\Projects\Personal Projects\21. Slotflow\Slotflow-Kafka\node_modules\kafkajs\src\utils\waitFor.js:21:22)[39m

@@ -4,7 +4,11 @@
   "description": "kafka server for slotflow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "bundle": "tsup src/index.ts --format esm --dts --out-dir dist-bundle"
   },
   "keywords": [
     "slotflow"
@@ -13,6 +17,15 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "kafkajs": "^2.2.4"
+    "kafkajs": "^2.2.4",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@types/winston": "^2.4.4",
+    "dotenv": "^17.2.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
