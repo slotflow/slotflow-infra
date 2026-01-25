@@ -1,8 +1,12 @@
 {
   "name": "slotflow-kafka",
-  "version": "1.0.0",
   "description": "kafka server for slotflow",
+  "author": "midhunkalarikkal",
+  "license": "MIT",
+  "version": "1.0.0",
   "main": "index.js",
+  "packageManager": "pnpm@10.28.1",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/index.ts",
@@ -10,12 +14,6 @@
     "start": "node dist/index.js",
     "bundle": "tsup src/index.ts --format esm --dts --out-dir dist-bundle"
   },
-  "keywords": [
-    "slotflow"
-  ],
-  "author": "midhun kalarikkal",
-  "license": "ISC",
-  "type": "module",
   "dependencies": {
     "kafkajs": "^2.2.4",
     "winston": "^3.19.0"

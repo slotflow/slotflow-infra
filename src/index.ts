@@ -19,8 +19,8 @@ const start = async () => {
             .filter(topic => !existingTopics.includes(topic))
             .map((topic) => ({
                 topic,
-                numPartitions: 3,
-                replicationFactor: 3
+                numPartitions: 1,
+                replicationFactor: 1
             }));
 
         if (topicsToCreate.length > 0) {

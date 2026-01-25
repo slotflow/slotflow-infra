@@ -7,7 +7,7 @@ const validator = new Validator();
 
 export const kafkaConfig = {
   clientId: validator.requireEnv("KAFKA_CLIENT_ID"),
-   brokers: [
+  brokers: [
     validator.requireEnv("KAFKA_BROKER_1"),
     validator.requireEnv("KAFKA_BROKER_2"),
     validator.requireEnv("KAFKA_BROKER_3"),
@@ -21,7 +21,8 @@ export const kafkaConfig = {
     adminProviderReview: validator.requireEnv("KAFKA_ADMIN_PROVIDER_REVIEW"),
     accountBlockStatus: validator.requireEnv("KAFKA_ACCOUNT_BLOCK_STATUS"),
     accountTrustStatus: validator.requireEnv("KAFKA_ACCOUNT_TRUST_STATUS"),
-    providerAppointmentStatus: validator.requireEnv("KAFKA_PROVIDER_APPOINTMENT_STATUS"),
+    providerAppointmentStatusForUser: validator.requireEnv("KAFKA_PROVIDER_APPOINTMENT_STATUS_FOR_USER"),
+    providerAppointmentStatusForProvider: validator.requireEnv("KAFKA_PROVIDER_APPOINTMENT_STATUS_FOR_PROVIDER"),
     appConnect: validator.requireEnv("KAFKA_APP_CONNECT"),
     providerTrialSubscription: validator.requireEnv("KAFKA_PROVIDER_TRIAL_SUBSCRIPTION"),
   },
