@@ -33,6 +33,8 @@ const start = async () => {
             log.info("Kafka Admin: All topics already exist");
         }
 
+        await admin.describeCluster()
+
         await admin.disconnect();
         log.info("Kafka Admin Disconnected");
     } catch (error) {

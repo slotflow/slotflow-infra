@@ -34,3 +34,27 @@
 [31m    at async retryOnLeaderNotAvailable.delay (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\admin\index.js:175:55)[39m
 [31m    at async callback (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\admin\index.js:36:14)[39m
 [31m    at async checkCondition (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\utils\waitFor.js:21:22)[39m
+[2026-02-07 14:18:50] [[31merror[39m]: [31mFailed to start kafka service: [39m
+[31mThis server does not host this topic-partition[39m
+[31mKafkaJSProtocolError: This server does not host this topic-partition[39m
+[31m    at createErrorFromCode (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\protocol\error.js:581:10)[39m
+[31m    at Object.parse (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\protocol\requests\metadata\v0\response.js:55:11)[39m
+[31m    at Connection.send (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\network\connection.js:433:35)[39m
+[31m    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
+[31m    at async [private:Broker:sendRequest] (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\broker\index.js:904:14)[39m
+[31m    at async Broker.metadata (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\broker\index.js:177:12)[39m
+[31m    at async retryOnLeaderNotAvailable.delay (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\admin\index.js:175:55)[39m
+[31m    at async callback (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\admin\index.js:36:14)[39m
+[31m    at async checkCondition (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\utils\waitFor.js:21:22)[39m
+[2026-02-12 15:59:24] [[31merror[39m]: [31mFailed to start kafka service: [39m
+[31mThis server does not host this topic-partition[39m
+[31mKafkaJSProtocolError: This server does not host this topic-partition[39m
+[31m    at createErrorFromCode (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\protocol\error.js:581:10)[39m
+[31m    at Object.parse (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\protocol\requests\metadata\v0\response.js:55:11)[39m
+[31m    at Connection.send (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\network\connection.js:433:35)[39m
+[31m    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
+[31m    at async [private:Broker:sendRequest] (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\broker\index.js:904:14)[39m
+[31m    at async Broker.metadata (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\broker\index.js:177:12)[39m
+[31m    at async retryOnLeaderNotAvailable.delay (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\admin\index.js:175:55)[39m
+[31m    at async callback (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\admin\index.js:36:14)[39m
+[31m    at async checkCondition (C:\MY LOCAL DISC\Slotflow\slotflow-kafka\node_modules\.pnpm\kafkajs@2.2.4\node_modules\kafkajs\src\utils\waitFor.js:21:22)[39m
