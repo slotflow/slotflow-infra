@@ -31,5 +31,10 @@ export const kafkaConfig = {
     providerSubscriptionPaymentFailed: validator.requireEnv("KAFKA_PROVIDER_SUBSCRIPTION_PAYMENT_FAILED"),
     createGoogleCalendarEvent: validator.requireEnv("KAFKA_GOOGLE_CALENDAR_EVENT_CREATE"),
     updateGoogleCalendarEvent: validator.requireEnv("KAFKA_GOOGLE_CALENDAR_EVENT_UPDATE"),
+    planSubscribed: validator.requireEnv("KAFKA_PLAN_SUBSCRIBED"),
+    slotBooked: validator.requireEnv("KAFKA_SLOT_BOOKED"),
+    userBookingPaymentSuccess: validator.requireEnv("KAFKA_USER_BOOKING_PAYMENT_SUCCESS"),
+    userBookingPaymentFailed: validator.requireEnv("KAFKA_USER_BOOKING_PAYMENT_FAILED"),
+    gotAnAppointment: validator.requireEnv("KAFKA_GOT_AN_APPOINTMENT"),
   },
 };
