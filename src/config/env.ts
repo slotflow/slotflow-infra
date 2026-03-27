@@ -36,5 +36,7 @@ export const kafkaConfig = {
     userBookingPaymentSuccess: validator.requireEnv("KAFKA_USER_BOOKING_PAYMENT_SUCCESS"),
     userBookingPaymentFailed: validator.requireEnv("KAFKA_USER_BOOKING_PAYMENT_FAILED"),
     gotAnAppointment: validator.requireEnv("KAFKA_GOT_AN_APPOINTMENT"),
+    stripeAccountCreated: validator.requireEnv("KAFKA_STRIPE_ACCOUNT_CREATED"),
+    stripeCustomerCreated: validator.requireEnv("KAFKA_STRIPE_CUSTOMER_CREATED"),
   },
 };
