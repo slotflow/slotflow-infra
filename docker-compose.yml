@@ -17,7 +17,7 @@ services:
     ports:
       - "9094:9094"
     networks:
-      - kafka-network
+      - slotflow-network
 
   kafka-broker-2:
     image: bitnamilegacy/kafka:3.8.0
@@ -37,7 +37,7 @@ services:
     ports:
       - "9095:9095"
     networks:
-      - kafka-network
+      - slotflow-network
       
   kafka-broker-3:
     image: bitnamilegacy/kafka:3.8.0
@@ -57,7 +57,7 @@ services:
     ports:
       - "9096:9096"
     networks:
-      - kafka-network
+      - slotflow-network
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -74,8 +74,58 @@ services:
       - kafka-broker-2
       - kafka-broker-3
     networks:
-      - kafka-network
+      - slotflow-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: slotflow-otel-collector
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./otel/otel-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+    networks:
+      - slotflow-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: slotflow-prometheus
+    volumes:
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - "9090:9090"
+    networks:
+      - slotflow-network
+    depends_on:
+      - otel-collector
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: slotflow-grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Change in prod
+    ports:
+      - "3001:3000"
+    networks:
+      - slotflow-network
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data:
+  grafana_data:
 
 networks:
-  kafka-network:
+  slotflow-network:
     driver: bridge
