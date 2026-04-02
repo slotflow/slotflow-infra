@@ -1,20 +1,14 @@
-import { Kafka } from 'kafkajs';
 import { log } from './logger/logger';
 import { kafkaConfig } from './config/env';
-
-const kafka = new Kafka({
-    clientId: kafkaConfig.clientId,
-    brokers: kafkaConfig.brokers
-});
-
-const admin = kafka.admin();
+import { kafkaAdmin } from './messaging/kafka.admin';
+import { setupGracefulShutdown } from './app/init/shutdown';
 
 const start = async () => {
     try {
-        await admin.connect();
+        await kafkaAdmin.connect();
         log.info("Kafka Admin Connected");
 
-        const existingTopics = await admin.listTopics();
+        const existingTopics = await kafkaAdmin.listTopics();
         const topicsToCreate = Object.values(kafkaConfig.topics)
             .filter(topic => !existingTopics.includes(topic))
             .map((topic) => ({
@@ -24,7 +18,7 @@ const start = async () => {
             }));
 
         if (topicsToCreate.length > 0) {
-            await admin.createTopics({
+            await kafkaAdmin.createTopics({
                 waitForLeaders: true,
                 topics: topicsToCreate,
             });
@@ -33,10 +27,12 @@ const start = async () => {
             log.info("Kafka Admin: All topics already exist");
         }
 
-        await admin.describeCluster()
-
-        await admin.disconnect();
+        await kafkaAdmin.describeCluster()
+        await kafkaAdmin.disconnect();
         log.info("Kafka Admin Disconnected");
+
+        setupGracefulShutdown();
+        
     } catch (error) {
         log.error("Failed to start kafka service: ", error as Error);
     }
