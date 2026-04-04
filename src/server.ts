@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { log } from './logger/logger';
 import { kafkaConfig } from './config/env';
 import { kafkaAdmin } from './messaging/kafka.admin';

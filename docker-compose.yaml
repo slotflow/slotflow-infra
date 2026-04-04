@@ -95,9 +95,7 @@ services:
     volumes:
       - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
       - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus-config.yaml'
-      - '--storage.tsdb.path=/prometheus'
+    command: ["--config.file=/etc/prometheus/prometheus-config.yaml", "--storage.tsdb.path=/prometheus"]
     ports:
       - "9090:9090"
     networks:
@@ -121,10 +119,37 @@ services:
       - slotflow-network
     depends_on:
       - prometheus
+  
+  loki:
+    image: grafana/loki:latest
+    container_name: slotflow-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
+    command: ["-config.file=/etc/loki/loki-config.yaml"]
+    networks:
+      - slotflow-network
+  
+  tempo:
+    image: grafana/tempo:2.9.0
+    container_name: slotflow-tempo
+    user: root
+    command: [ "-config.file=/etc/tempo-config.yaml" ]
+    volumes:
+      - ./tempo/tempo-config.yaml:/etc/tempo-config.yaml
+      - tempo_data:/tmp/tempo
+    ports:
+      - "3200:3200"   # Tempo HTTP API
+      - "4319:4317"   # Tempo OTLP gRPC receiver (mapped safely to avoid conflicting with OTel collector's 4317)
+      - "4320:4318"
+    networks:
+      - slotflow-network
 
 volumes:
   prometheus_data:
   grafana_data:
+  tempo_data:
 
 networks:
   slotflow-network:

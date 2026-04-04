@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { Validator } from "../utils/validator";
 
 const validator = new Validator();

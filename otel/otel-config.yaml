@@ -17,6 +17,16 @@ exporters:
     namespace: "slotflow"
     send_timestamps: true
     metric_expiration: 120m
+    
+  otlphttp/loki:
+    endpoint: "http://loki:3100/otlp"
+    tls:
+      insecure: true
+
+  otlphttp/tempo:
+    endpoint: "http://tempo:4318"
+    tls:
+      insecure: true # will be secure in docker
 
   debug:
     verbosity: detailed
@@ -26,8 +36,14 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [otlphttp/tempo] 
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheus, debug]
+      exporters: [prometheus]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/loki]
+
+# if use debug in exporters: array , it prints every single trace, metric, and log it receives to stdout
