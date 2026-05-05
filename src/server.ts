@@ -16,7 +16,7 @@ const start = async () => {
             .map((topic) => ({
                 topic,
                 numPartitions: 1,
-                replicationFactor: 1
+                replicationFactor: 2
             }));
 
         if (topicsToCreate.length > 0) {
@@ -24,6 +24,10 @@ const start = async () => {
                 waitForLeaders: true,
                 topics: topicsToCreate,
             });
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            await kafkaAdmin.fetchTopicMetadata({ topics: Object.values(kafkaConfig.topics) });
+            
             log.info(`Kafka Admin: Created ${topicsToCreate.length} new topics`);
         } else {
             log.info("Kafka Admin: All topics already exist");
