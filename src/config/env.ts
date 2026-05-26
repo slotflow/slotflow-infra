@@ -6,8 +6,8 @@ export const kafkaConfig = {
   clientId: validator.requireEnv("KAFKA_CLIENT_ID"),
   brokers: [
     validator.requireEnv("KAFKA_BROKER_1"),
-    validator.requireEnv("KAFKA_BROKER_2"),
-    validator.requireEnv("KAFKA_BROKER_3"),
+    // validator.requireEnv("KAFKA_BROKER_2"),
+    // validator.requireEnv("KAFKA_BROKER_3"),
   ],
 
   topics: {
@@ -33,5 +33,6 @@ export const kafkaConfig = {
     gotAnAppointment: validator.requireEnv("KAFKA_GOT_AN_APPOINTMENT"),
     stripeAccountCreated: validator.requireEnv("KAFKA_STRIPE_ACCOUNT_CREATED"),
     stripeCustomerCreated: validator.requireEnv("KAFKA_STRIPE_CUSTOMER_CREATED"),
+    passwordUpdate: validator.requireEnv("KAFKA_PASSWORD_UPDATE"),
   },
 };

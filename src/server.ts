@@ -1,5 +1,4 @@
 import 'dotenv/config';
-
 import { log } from './logger/logger';
 import { kafkaConfig } from './config/env';
 import { kafkaAdmin } from './messaging/kafka.admin';
@@ -16,7 +15,7 @@ const start = async () => {
             .map((topic) => ({
                 topic,
                 numPartitions: 1,
-                replicationFactor: 2
+                replicationFactor: 1
             }));
 
         if (topicsToCreate.length > 0) {
@@ -25,8 +24,8 @@ const start = async () => {
                 topics: topicsToCreate,
             });
             
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            await kafkaAdmin.fetchTopicMetadata({ topics: Object.values(kafkaConfig.topics) });
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            await kafkaAdmin.fetchTopicMetadata({ topics: topicsToCreate.map(t => t.topic) });
             
             log.info(`Kafka Admin: Created ${topicsToCreate.length} new topics`);
         } else {
