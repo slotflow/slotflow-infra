@@ -58,5 +58,3 @@ export const log = {
   info: (msg: LogMessage) => logger.info(msg),
   debug: (msg: LogMessage) => logger.debug(msg),
 };
-
-export default logger;

@@ -1,40 +1,43 @@
-import { Kafka } from 'kafkajs';
+import 'dotenv/config';
 import { log } from './logger/logger';
 import { kafkaConfig } from './config/env';
-
-const kafka = new Kafka({
-    clientId: kafkaConfig.clientId,
-    brokers: kafkaConfig.brokers
-});
-
-const admin = kafka.admin();
+import { kafkaAdmin } from './messaging/kafka.admin';
+import { setupGracefulShutdown } from './app/init/shutdown';
 
 const start = async () => {
     try {
-        await admin.connect();
+        await kafkaAdmin.connect();
         log.info("Kafka Admin Connected");
 
-        const existingTopics = await admin.listTopics();
+        const existingTopics = await kafkaAdmin.listTopics();
         const topicsToCreate = Object.values(kafkaConfig.topics)
             .filter(topic => !existingTopics.includes(topic))
             .map((topic) => ({
                 topic,
-                numPartitions: 3,
-                replicationFactor: 3
+                numPartitions: 1,
+                replicationFactor: 1
             }));
 
         if (topicsToCreate.length > 0) {
-            await admin.createTopics({
+            await kafkaAdmin.createTopics({
                 waitForLeaders: true,
                 topics: topicsToCreate,
             });
+            
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            await kafkaAdmin.fetchTopicMetadata({ topics: topicsToCreate.map(t => t.topic) });
+            
             log.info(`Kafka Admin: Created ${topicsToCreate.length} new topics`);
         } else {
             log.info("Kafka Admin: All topics already exist");
         }
 
-        await admin.disconnect();
+        await kafkaAdmin.describeCluster()
+        await kafkaAdmin.disconnect();
         log.info("Kafka Admin Disconnected");
+
+        setupGracefulShutdown();
+        
     } catch (error) {
         log.error("Failed to start kafka service: ", error as Error);
     }

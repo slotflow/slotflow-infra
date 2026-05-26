@@ -1,0 +1,114 @@
+services:
+  kafka-broker-1:
+    image: bitnamilegacy/kafka:3.8.0
+    container_name: kafka-broker-1
+    environment:
+      KAFKA_ENABLE_KRAFT: "yes"
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka-broker-1:9093
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,EXTERNAL://0.0.0.0:9094,CONTROLLER://:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,EXTERNAL://localhost:9094
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_KRAFT_CLUSTER_ID: ZIuFzAMITEqUxDdBlb7y_w
+      ALLOW_PLAINTEXT_LISTENER: yes
+    ports:
+      - "9094:9094"
+    networks:
+      - slotflow-network
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local-cluster
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-broker-1:9092
+      - KAFKA_CLUSTERS_0_READONLY=false
+      - KAFKA_CLUSTERS_0_TOPIC_AUTO_CREATE=true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka-broker-1
+    networks:
+      - slotflow-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: slotflow-otel-collector
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./otel/otel-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+    networks:
+      - slotflow-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: slotflow-prometheus
+    volumes:
+      - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
+      - prometheus_data:/prometheus
+    command: ["--config.file=/etc/prometheus/prometheus-config.yaml", "--storage.tsdb.path=/prometheus"]
+    ports:
+      - "9090:9090"
+    networks:
+      - slotflow-network
+    depends_on:
+      - otel-collector
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: slotflow-grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Change in prod
+    ports:
+      - "3001:3000"
+    networks:
+      - slotflow-network
+    depends_on:
+      - prometheus
+  
+  loki:
+    image: grafana/loki:latest
+    container_name: slotflow-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
+    command: ["-config.file=/etc/loki/loki-config.yaml"]
+    networks:
+      - slotflow-network
+  
+  tempo:
+    image: grafana/tempo:2.9.0
+    container_name: slotflow-tempo
+    user: root
+    command: [ "-config.file=/etc/tempo-config.yaml" ]
+    volumes:
+      - ./tempo/tempo-config.yaml:/etc/tempo-config.yaml
+      - tempo_data:/tmp/tempo
+    ports:
+      - "3200:3200"   # Tempo HTTP API
+      - "4319:4317"   # Tempo OTLP gRPC receiver (mapped safely to avoid conflicting with OTel collector's 4317)
+      - "4320:4318"
+    networks:
+      - slotflow-network
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  tempo_data:
+
+networks:
+  slotflow-network:
+    driver: bridge

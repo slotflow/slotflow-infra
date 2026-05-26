@@ -1,31 +1,29 @@
 {
-  "name": "slotflow-kafka",
+  "name": "slotflow-infra",
+  "description": "infra server for slotflow",
+  "author": "midhunkalarikkal",
+  "license": "MIT",
   "version": "1.0.0",
-  "description": "kafka server for slotflow",
-  "main": "index.js",
+  "main": "src/server.ts",
+  "packageManager": "pnpm@10.28.1",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "bundle": "tsup src/index.ts --format esm --dts --out-dir dist-bundle"
+    "start": "node dist/server.js",
+    "bundle": "tsup src/server.ts --format esm --dts --out-dir dist-bundle"
   },
-  "keywords": [
-    "slotflow"
-  ],
-  "author": "midhun kalarikkal",
-  "license": "ISC",
-  "type": "module",
   "dependencies": {
     "kafkajs": "^2.2.4",
     "winston": "^3.19.0"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
-    "@types/winston": "^2.4.4",
     "dotenv": "^17.2.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.3"
   }
 }
