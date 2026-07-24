@@ -34,5 +34,8 @@ export const kafkaConfig = {
     stripeAccountCreated: validator.requireEnv("KAFKA_STRIPE_ACCOUNT_CREATED"),
     stripeCustomerCreated: validator.requireEnv("KAFKA_STRIPE_CUSTOMER_CREATED"),
     passwordUpdate: validator.requireEnv("KAFKA_PASSWORD_UPDATE"),
+    stripeAccountLinked: validator.requireEnv("KAFKA_STRIPE_ACCOUNT_LINKED"),
+    stripeAccountStatusUpdated: validator.requireEnv("KAFKA_STRIPE_ACCOUNT_STATUS_UPDATED"),
+    dlqTopic: validator.requireEnv("KAFKA_DLQ_TOPIC"),
   },
 };
